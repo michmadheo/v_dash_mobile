@@ -109,11 +109,19 @@ class _DashboardMetricCard extends StatelessWidget {
 
               ClipRRect(
                 borderRadius: ThemeBorder.bc8,
-                child: LinearProgressIndicator(
-                  value: _progress,
-                  minHeight: 6.ds,
-                  backgroundColor: Colors.white.withValues(alpha: 0.08),
-                  valueColor: AlwaysStoppedAnimation<Color>(color),
+                // Eases towards the new value instead of jumping instantly
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween<double>(begin: 0, end: _progress),
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.easeInOut,
+                  builder: (context, animatedValue, child) {
+                    return LinearProgressIndicator(
+                      value: animatedValue,
+                      minHeight: 6.ds,
+                      backgroundColor: Colors.white.withValues(alpha: 0.08),
+                      valueColor: AlwaysStoppedAnimation<Color>(color),
+                    );
+                  },
                 ),
               ),
             ],

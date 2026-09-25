@@ -5,7 +5,6 @@ import 'package:v_dash_mobile/features/demo_feature/view/demo_feature_view.dart'
 import 'package:v_dash_mobile/app/navigation/object/demo_navigation_object.dart';
 import 'package:v_dash_mobile/app/navigation/observer/navigation_observer.dart';
 import 'package:v_dash_mobile/app/navigation/path/navigation_path.dart';
-import 'package:v_dash_mobile/features/landing/view/landing_view.dart';
 import 'package:v_dash_mobile/features/dashboard/view/dashboard_view.dart';
 // @mason-import-anchor <-- Do not remove
 import 'package:go_router/go_router.dart';
@@ -15,12 +14,6 @@ final router = GoRouter(
   navigatorKey: Config.navigatorKey,
   observers: [NavigationObserver()],
   routes: [
-    GoRoute(
-      path: NavigationPath.landing,
-      builder: (context, state) {
-        return LandingView();
-      },
-    ),
     GoRoute(
       path: NavigationPath.demoFeature,
       builder: (context, state) {
@@ -39,24 +32,6 @@ final router = GoRouter(
       },
     ),
     // @mason-anchor <-- Do not remove
-
-    /// Example of using animation when navigating to the DemoFeatureView, please note that using animation will disable device's back functionality
-    // GoRoute(
-    //   path: NavigationPath.initialRoute,
-    //   pageBuilder: (context, state) {
-    //     DemoNavigationObject? extra = state.extra != null
-    //         ? state.extra as DemoNavigationObject
-    //         : null;
-    //     return NavigationAnimation.fadeTransition( // More animation can be found in the NavigationAnimation class
-    //       context,
-    //       state,
-    //       DemoFeatureView(
-    //         extra: extra,
-    //       ),
-    //       NavigationPath.initialRoute,
-    //     );
-    //   },
-    // ),
 
     /// If you're planning to use NavigationBar or NavigationRail, you can use StatefulShellRouter below to avoid re-loading the active page when switching tabs.
     // StatefulShellRoute.indexedStack(

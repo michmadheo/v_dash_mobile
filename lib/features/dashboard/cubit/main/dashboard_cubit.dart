@@ -111,6 +111,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         },
         onError: (error) {
           emit(state.copyWith(stateDashboard: ViewState.error));
+          updateConnectionStatus(false);
           disconnectFromObd();
         },
         onDone: () {
@@ -146,6 +147,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     } catch (e) {
       _obdSocket = null;
       emit(state.copyWith(stateDashboard: ViewState.error));
+      updateConnectionStatus(false);
     }
   }
 

@@ -19,23 +19,12 @@ class DashboardScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: AssetColors.lightBlack,
             appBar: _AppBarSection(
-              vehicleName: 'Toyota Yaris Hatchback',
+              vehicleName: 'Car Dashboard',
               isConnected: isConnected,
             ),
             body: SingleChildScrollView(
               child: Column(children: const [_BodySection()]),
             ),
-            // floatingActionButton: FloatingActionButton(
-            //   backgroundColor: AssetColors.red,
-            //   onPressed: () => dashboardCubit.toggleSimulation(),
-            //   child: BlocBuilder<DashboardCubit, DashboardState>(
-            //     buildWhen: (previous, current) =>
-            //         previous.isSimulating != current.isSimulating,
-            //     builder: (context, state) {
-            //       return Icon(state.isSimulating ? Icons.stop : Icons.play_arrow);
-            //     },
-            //   ),
-            // ),
           );
         },
       ),

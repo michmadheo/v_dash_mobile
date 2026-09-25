@@ -18,7 +18,7 @@ class DashboardState extends Equatable {
       stateDashboard: ViewState.initial,
       isConnected: false,
       itemValues: [0, 0, 0, 0, 0, 0],
-      itemMaxValues: [100, 100, 100, 100, 100, 100],
+      itemMaxValues: [255, 16383, 215, 100, 100, 65],
     );
 
   DashboardState copyWith({

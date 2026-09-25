@@ -24,4 +24,11 @@ class ConnectionUtil {
     print('WIFI Gateway  : $wifiGateway');
     print('===============================');
   }
+
+  static Future<String?> getWifiGateway() async {
+    final info = NetworkInfo();
+    String? wifiGateway = await info.getWifiGatewayIP();
+
+    return wifiGateway;
+  }
 }

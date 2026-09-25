@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:ui';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:v_dash_mobile/app/assets/colors/asset_colors.dart';
@@ -13,7 +11,6 @@ import 'package:v_dash_mobile/app/widgets/atoms/gap/gap.dart';
 import 'package:v_dash_mobile/app/widgets/atoms/text/text_base.dart';
 import 'package:v_dash_mobile/core/dependencies/injection.dart';
 import 'package:v_dash_mobile/core/general_helpers/extensions/dynamic_size_extension.dart';
-import 'package:v_dash_mobile/core/general_helpers/utils/connection_util.dart';
 import 'package:v_dash_mobile/features/dashboard/cubit/main/dashboard_cubit.dart';
 import 'package:v_dash_mobile/features/dashboard/repository/dashboard_repository.dart';
 

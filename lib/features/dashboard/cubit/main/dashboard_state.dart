@@ -2,13 +2,13 @@ part of 'dashboard_cubit.dart';
 
 class DashboardState extends Equatable {
   final ViewState stateDashboard;
-  final bool isSimulating;
+  final bool isConnected;
   final List<int> itemValues;
   final List<int> itemMaxValues;
 
   const DashboardState({
     required this.stateDashboard,
-    required this.isSimulating,
+    required this.isConnected,
     required this.itemValues,
     required this.itemMaxValues,
   });
@@ -16,7 +16,7 @@ class DashboardState extends Equatable {
   factory DashboardState.initial() =>
     DashboardState(
       stateDashboard: ViewState.initial,
-      isSimulating: false,
+      isConnected: false,
       itemValues: [0, 0, 0, 0, 0, 0],
       itemMaxValues: [100, 100, 100, 100, 100, 100],
     );
@@ -24,12 +24,13 @@ class DashboardState extends Equatable {
   DashboardState copyWith({
     ViewState? stateDashboard,
     bool? isSimulating,
+    bool? isConnected,
     List<int>? itemValues,
     List<int>? itemMaxValues,
   }) {
     return DashboardState(
       stateDashboard: stateDashboard ?? this.stateDashboard,
-      isSimulating: isSimulating ?? this.isSimulating,
+      isConnected: isConnected ?? this.isConnected,
       itemValues: itemValues ?? this.itemValues,
       itemMaxValues: itemMaxValues ?? this.itemMaxValues,
     );
@@ -38,7 +39,7 @@ class DashboardState extends Equatable {
   @override
   List<Object> get props => [
     stateDashboard,
-    isSimulating,
+    isConnected,
     itemValues,
     itemMaxValues,
   ];

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:v_dash_mobile/core/common/view_state/view_state.dart';
@@ -15,24 +16,37 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   DashboardCubit({
     required this.repository,
-  }) : super(DashboardState.initial());
+  }) : super(DashboardState.initial()) {
+    _listenToConnectivity();
+  }
 
   final CancelToken _cancelToken = CancelToken();
   final Random _random = Random();
   final List<Timer?> _itemSimulationTimers = List<Timer?>.filled(6, null);
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
+
+  void _listenToConnectivity() {
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+      result,
+    ) {
+      final isWifiConnected = result.contains(ConnectivityResult.wifi);
+      updateConnectionStatus(isWifiConnected);
+      toggleSimulation(isWifiConnected);
+    });
+  }
 
   @override // Cancel any ongoing operations when the Cubit is closed
   Future<void> close() {
     _cancelToken.cancel();
+    _connectivitySubscription?.cancel();
     for (final timer in _itemSimulationTimers) {
       timer?.cancel();
     }
     return super.close();
   }
 
-  // Simulates realtime data as if it were being pushed by a live vehicle connection
-  void toggleSimulation() {
-    if (state.isSimulating) {
+  void toggleSimulation(bool status) {
+    if (status == false) {
       for (final timer in _itemSimulationTimers) {
         timer?.cancel();
       }
@@ -47,6 +61,10 @@ class DashboardCubit extends Cubit<DashboardState> {
         _updateItemValue(i, _random.nextInt(100));
       });
     }
+  }
+
+  void updateConnectionStatus(bool isConnected) {
+    emit(state.copyWith(isConnected: isConnected));
   }
 
   void _updateItemValue(int index, int value) {

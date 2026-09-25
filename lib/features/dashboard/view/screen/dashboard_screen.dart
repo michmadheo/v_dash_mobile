@@ -15,7 +15,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         BlocListener<DashboardCubit, DashboardState>(listener: (context, state) {}),
       ],
       child: Scaffold(
-        appBar: _AppBarSection(),
+        backgroundColor: const Color(0xFF0B0E13),
+        // Sample vehicle status, replace with real data from DashboardState later
+        appBar: const _AppBarSection(
+          vehicleName: 'Toyota Yaris Hatchback',
+          isConnected: true,
+        ),
         body: SingleChildScrollView(
           child: Column(children: const [_BodySection()]),
         ),

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-// import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -21,7 +20,6 @@ class DashboardCubit extends Cubit<DashboardState> {
   }
 
   final CancelToken _cancelToken = CancelToken();
-  // final Random _random = Random();
   final List<Timer?> _itemSimulationTimers = List<Timer?>.filled(6, null);
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
   Socket? _obdSocket;
@@ -31,6 +29,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
       result,
     ) async {
+      emit(state.copyWith(stateDashboard: ViewState.loading));
       final isWifiConnected = result.contains(ConnectivityResult.wifi);
 
 
@@ -39,6 +38,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         if (wifiGateway == '10.0.2.2') {
           connectToObd();
         } else {
+          emit(state.copyWith(stateDashboard: ViewState.error));
           updateConnectionStatus(false);
         }
       } else {
@@ -60,33 +60,12 @@ class DashboardCubit extends Cubit<DashboardState> {
     return super.close();
   }
 
-  // void toggleSimulation(bool status) {
-  //   if (status == false) {
-  //     for (final timer in _itemSimulationTimers) {
-  //       timer?.cancel();
-  //     }
-
-  //     emit(state.copyWith(isSimulating: false));
-
-  //     return;
-  //   }
-
-  //   emit(state.copyWith(isSimulating: true));
-
-  //   for (var i = 0; i < _itemSimulationTimers.length; i++) {
-  //     _itemSimulationTimers[i] = Timer.periodic(Duration(seconds: 2 + i), (_) {
-  //       _updateItemValue(i, _random.nextInt(100));
-  //     });
-  //   }
-  // }
-
   Future<void> connectToObd() async {
     if (_obdSocket != null) {
       return;
     }
 
     try {
-      print('Connecting to OBD...');
       updateConnectionStatus(true);
       final socket = await Socket.connect(
         '10.0.2.2',
@@ -95,7 +74,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       );
 
       _obdSocket = socket;
-
+      emit(state.copyWith(stateDashboard: ViewState.success));
       socket.listen(
         (data) {
           final response = String.fromCharCodes(data).trim();
@@ -131,13 +110,10 @@ class DashboardCubit extends Cubit<DashboardState> {
           }
         },
         onError: (error) {
-          print('❌ OBD SOCKET ERROR: $error');
-
+          emit(state.copyWith(stateDashboard: ViewState.error));
           disconnectFromObd();
         },
         onDone: () {
-          print('🔌 OBD DISCONNECTED');
-
           _obdSocket = null;
           _obdTimer?.cancel();
           _obdTimer = null;
@@ -154,6 +130,7 @@ class DashboardCubit extends Cubit<DashboardState> {
         '0104', // 4 - Engine Load
         '0142', // 5 - Voltage
       ];
+      emit(state.copyWith(stateDashboard: ViewState.initial));
 
       var index = 0;
 
@@ -167,9 +144,8 @@ class DashboardCubit extends Cubit<DashboardState> {
         }
       });
     } catch (e) {
-      print('❌ OBD CONNECTION FAILED: $e');
-
       _obdSocket = null;
+      emit(state.copyWith(stateDashboard: ViewState.error));
     }
   }
 

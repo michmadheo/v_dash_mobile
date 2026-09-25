@@ -8,7 +8,49 @@ class DashboardScreen extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<DashboardCubit, DashboardState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state.stateDashboard == ViewState.loading) {
+              // Do something when loading
+            } else if (state.stateDashboard == ViewState.success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: AssetColors.green,
+                  content: TextBase(
+                    label: 'Berhasil terhubung dengan OBD',
+                    textAlign: TextAlign.center,
+                    style: ThemeFonts.captionRegular,
+                    color: AssetColors.white,
+                  ),
+                  behavior:
+                      SnackBarBehavior.floating,
+                  width: 200.ds,
+                  duration: const Duration(seconds: 2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.ds),
+                  ),
+                ),
+              );
+            } else if (state.stateDashboard == ViewState.error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: AssetColors.red,
+                  content: TextBase(
+                    label: 'Gagal terhubung dengan OBD',
+                    textAlign: TextAlign.center,
+                    style: ThemeFonts.captionRegular,
+                    color: AssetColors.white,
+                  ),
+                  behavior:
+                      SnackBarBehavior.floating,
+                  width: 200.ds,
+                  duration: const Duration(seconds: 2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.ds),
+                  ),
+                ),
+              );
+            }
+          },
         ),
       ],
       child: BlocSelector<DashboardCubit, DashboardState, bool>(

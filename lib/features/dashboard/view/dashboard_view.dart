@@ -9,6 +9,7 @@ import 'package:v_dash_mobile/app/themes/margin/theme_margin.dart';
 import 'package:v_dash_mobile/app/themes/padding/theme_padding.dart';
 import 'package:v_dash_mobile/app/widgets/atoms/gap/gap.dart';
 import 'package:v_dash_mobile/app/widgets/atoms/text/text_base.dart';
+import 'package:v_dash_mobile/core/common/view_state/view_state.dart';
 import 'package:v_dash_mobile/core/dependencies/injection.dart';
 import 'package:v_dash_mobile/core/general_helpers/extensions/dynamic_size_extension.dart';
 import 'package:v_dash_mobile/features/dashboard/cubit/main/dashboard_cubit.dart';

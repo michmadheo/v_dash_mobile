@@ -6,11 +6,12 @@ import 'package:v_dash_mobile/app/navigation/object/demo_navigation_object.dart'
 import 'package:v_dash_mobile/app/navigation/observer/navigation_observer.dart';
 import 'package:v_dash_mobile/app/navigation/path/navigation_path.dart';
 import 'package:v_dash_mobile/features/landing/view/landing_view.dart';
+import 'package:v_dash_mobile/features/dashboard/view/dashboard_view.dart';
 // @mason-import-anchor <-- Do not remove
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: NavigationPath.landing,
+  initialLocation: NavigationPath.dashboard,
   navigatorKey: Config.navigatorKey,
   observers: [NavigationObserver()],
   routes: [
@@ -29,6 +30,12 @@ final router = GoRouter(
         return DemoFeatureView(
           extra: extra, // Pass the extra data to the view, don't forget to add this in the view constructor
         );
+      },
+    ),
+    GoRoute(
+      path: NavigationPath.dashboard,
+      builder: (context, state) {
+        return DashboardView();
       },
     ),
     // @mason-anchor <-- Do not remove

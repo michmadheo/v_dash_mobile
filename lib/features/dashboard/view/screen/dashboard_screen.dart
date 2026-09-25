@@ -10,7 +10,6 @@ class DashboardScreen extends StatelessWidget {
         BlocListener<DashboardCubit, DashboardState>(
           listener: (context, state) {
             if (state.stateDashboard == ViewState.loading) {
-              // Do something when loading
             } else if (state.stateDashboard == ViewState.success) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -21,8 +20,7 @@ class DashboardScreen extends StatelessWidget {
                     style: ThemeFonts.captionRegular,
                     color: AssetColors.white,
                   ),
-                  behavior:
-                      SnackBarBehavior.floating,
+                  behavior: SnackBarBehavior.floating,
                   width: 200.ds,
                   duration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(
@@ -40,8 +38,7 @@ class DashboardScreen extends StatelessWidget {
                     style: ThemeFonts.captionRegular,
                     color: AssetColors.white,
                   ),
-                  behavior:
-                      SnackBarBehavior.floating,
+                  behavior: SnackBarBehavior.floating,
                   width: 200.ds,
                   duration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(

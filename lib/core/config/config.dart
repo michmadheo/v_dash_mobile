@@ -19,4 +19,6 @@ class Config {
 
   // Environment (Add more if you add more keys in the env.dart file)
   static String flavor = Env.flavor;
+  static String host = Env.host;
+  static int port = int.parse(Env.port);
 }

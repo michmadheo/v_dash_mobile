@@ -1,8 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:io';
 
 // Before running this test install ELM327 emulator with python by running "python3 -m pip install ELM327-emulator"
-// Then run on terminal with python3 by running "-m elm -s car -n 35000"
+// Then run on terminal with python3 by running "python3 -m elm -n 35000"
 // More info: https://github.com/ircama/ELM327-emulator
 
 Future<void> main() async {

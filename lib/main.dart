@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Initialize Device Orientation
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
 
   /// Initialize Dependency Injection
   Injection().initializeDependencyInjection();
